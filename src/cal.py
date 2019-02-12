@@ -20,5 +20,36 @@ and does the following:
 """
 
 import sys
-import calendar
-from datetime import datetime
+from calendar import TextCalendar
+from datetime import date
+
+args = sys.argv
+cal = TextCalendar()
+
+if len(args) > 3:
+    print('''Please provide one of the following:
+    \n(a): no arguments, to get the current month
+    \n(b): a single month argument, with jan = 1, to get that month of the current year
+    \n(c): a month and a year argument, to get a calendar for that month year combination''')
+
+else:
+    try:
+        if len(args) == 1:
+            date = date.today()
+            year = date.year
+            month = date.month
+        elif len(args) == 2:
+            date = date.today()
+            year = date.year
+            month = int(args[1])
+        elif len(args) == 3:
+            month = int(args[1])
+            year = int(args[2])
+
+        print(cal.formatmonth(year, month))
+    except:
+        print('''An exception occured.
+    \nPlease provide one of the following:
+    \n(a): no arguments, to get the current month
+    \n(b): a single month argument, with jan = 1, to get that month of the current year
+    \n(c): a month and a year argument, to get a calendar for that month year combination''')
