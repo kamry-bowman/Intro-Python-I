@@ -1,3 +1,5 @@
+import math
+from itertools import islice
 
 
 def isPrime(original_num):
@@ -16,24 +18,33 @@ def isPrime(original_num):
     return primeHelper(original_num, original_num // 2)
 
 
+def int_sqrt(num):
+    candidate = 1
+    squared = candidate * candidate
+
+    while squared <= num:
+        candidate += 1
+        squared = candidate * candidate
+    return candidate - 1
+
+
 for i in range(1, 40):
     print(i, isPrime(i))
 
-# still in process
-# def primeFactors(num):
-#     candidates = list(range(2, num))
-#     for i, candidate in enumerate(candidates):
-#         if candidate:
-#             step = candidate
-#             pointer = i + step
-#             sub_candidate = candidate
-#             while sub_candidate ** 2 < num:
-#                 print(sub_candidate, pointer)
-#                 if sub_candidate:
-#                     candidates[pointer] = False
-#                 pointer += step
-#                 sub_candidate = candidates[pointer]
-#     return [i for i in candidates if i]
+
+def primes_factors(num):
+    candidates = list(range(2, num))
+    for i, candidate in enumerate(candidates):
+        if candidate:
+            if num % candidate == 0:
+                candidates[0] = False
+            step = candidate
+            pointer = i + step
+            while pointer < len(candidates):
+                candidates[pointer] = False
+                pointer += step
+
+    return [i for i in candidates if i]
 
 
-# print(primeFactors(40))
+print(primes_up_to(100))
