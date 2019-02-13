@@ -28,23 +28,23 @@ def int_sqrt(num):
     return candidate - 1
 
 
-for i in range(1, 40):
-    print(i, isPrime(i))
+# for i in range(1, 40):
+#     print(i, isPrime(i))
 
 
 def primes_factors(num):
-    candidates = list(range(2, num))
-    for i, candidate in enumerate(candidates):
-        if candidate:
-            if num % candidate == 0:
-                candidates[0] = False
-            step = candidate
-            pointer = i + step
-            while pointer < len(candidates):
-                candidates[pointer] = False
-                pointer += step
+    candidates = [True for i in range(num + 1)]
+    p = 2
 
-    return [i for i in candidates if i]
+    while p <= num:
+        if candidates[p]:
+            if num % p == 0:
+                candidates[p] = False
+            for q in range(p * p, num + 1, p):
+                candidates[q] = False
+        p += 1
+
+    return [i for i in range(2, num + 1) if candidates[i]]
 
 
-print(primes_up_to(100))
+print(primes_factors(21))
